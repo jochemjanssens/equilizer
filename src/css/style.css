@@ -1,9 +1,15 @@
-@import 'reset';
-
 body {
   font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
   margin: 2rem;
+}
+
+.visual {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(#333, #222);
 }
 
 header {
