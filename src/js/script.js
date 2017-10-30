@@ -1,21 +1,22 @@
 let analyzer;
 const svgns = `http://www.w3.org/2000/svg`;
 const elements = 1024;
+let audio;
 
 const init = () => {
   setupEquilizer();
 };
 
 const setupEquilizer = () => {
-  const audio = new Audio();
+  audio = new Audio();
   audio.controls = true;
   audio.src = `../assets/audio/ultralife.mp3`;
+  audio.addEventListener(`playing`, renderFrame);
   document.body.appendChild(audio);
 
   const audioCtx = new AudioContext();
   analyzer = audioCtx.createAnalyser();
 
-  audio.play();
   const sourceNode = audioCtx.createMediaElementSource(audio);
   sourceNode.connect(analyzer);
   sourceNode.connect(audioCtx.destination);
@@ -55,7 +56,9 @@ const renderFrame = () => {
     $item.setAttribute(`y`, height - itemData);
   }
 
-  requestAnimationFrame(renderFrame);
+  if (!audio.paused) {
+    requestAnimationFrame(renderFrame);
+  }
 };
 
 
