@@ -1,5 +1,5 @@
 let analyzer;
-const elements = 1024;
+const elements = 1023; //1024 zero based
 let audio;
 
 const init = () => {
@@ -90,31 +90,26 @@ const createLights = () => {
   scene.add(ambientLight);
 };
 
-//const minX = - 100;
-//const maxX = 100;
-//const minY = 0;
-//const maxY = 200;
-
 let xCounter = 0;
 let yCounter = 0;
 
 const bars = [];
 
 const createEquilizer = () => {
-  let bar;
   for (let i = 0;i < elements;i ++) {
+    const bar = new Bar();
+    bar.mesh.position.x = - 100 + ((200 / 32) * xCounter);
+    bar.mesh.position.y = (200 / 32) * yCounter;
+    bar.mesh.position.z = - 100;
+    scene.add(bar.mesh);
+    bars.push(bar);
+
     if (xCounter < 32) {
       xCounter ++;
     } else {
       xCounter = 0;
       yCounter ++;
     }
-    bar = new Bar();
-    bar.mesh.position.x = - 100 + ((200 / 32) * xCounter);
-    bar.mesh.position.y = (200 / 32) * yCounter;
-    bar.mesh.position.z = - 100;
-    scene.add(bar.mesh);
-    bars.push(bar);
   }
   renderFrame();
 };
@@ -122,9 +117,8 @@ const createEquilizer = () => {
 class Bar {
   constructor() {
     this.mesh = new THREE.Object3D();
-
     const geomBox = new THREE.BoxGeometry(2, 2, 2);
-    const matBox = new THREE.MeshPhongMaterial({color: 0x00ff00});
+    const matBox = new THREE.MeshPhongMaterial({color: 0xFC6554});
     const box = new THREE.Mesh(geomBox, matBox);
     box.castShadow = true;
     box.receiveShadow = true;
@@ -137,7 +131,7 @@ const renderFrame = () => {
   analyzer.getByteFrequencyData(data);
 
   renderer.render(scene, camera);
-  for (let i = 0;i < data.length;i ++) {
+  for (let i = 0;i < (data.length - 1);i ++) {
     bars[i].mesh.position.z = - 100 + (data[i] / 2);
   }
   requestAnimationFrame(renderFrame);
