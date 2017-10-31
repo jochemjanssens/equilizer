@@ -126,13 +126,16 @@ class Bar {
   }
 }
 
+const max = 255;
+const minValue = - 100;
+const maxValue = 10;
 const renderFrame = () => {
   const data = new Uint8Array(analyzer.frequencyBinCount);
   analyzer.getByteFrequencyData(data);
 
   renderer.render(scene, camera);
   for (let i = 0;i < (data.length - 1);i ++) {
-    bars[i].mesh.position.z = - 100 + (data[i] / 2);
+    bars[i].mesh.position.z = ((data[i] * (maxValue - minValue)) / max) + minValue;
   }
   requestAnimationFrame(renderFrame);
 };
