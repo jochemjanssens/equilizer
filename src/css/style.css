@@ -1,7 +1,6 @@
 body {
   font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
-  margin: 2rem;
 }
 
 .visual {
@@ -12,10 +11,7 @@ body {
   background: radial-gradient(#333, #222);
 }
 
-header {
-  margin: 2rem 0;
-}
-
-h1 {
-  font-size: 3rem;
+.audio {
+  position: fixed;
+  z-index: 3;
 }

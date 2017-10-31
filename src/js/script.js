@@ -129,6 +129,7 @@ class Bar {
 const max = 255;
 const minValue = - 100;
 const maxValue = 10;
+
 const renderFrame = () => {
   const data = new Uint8Array(analyzer.frequencyBinCount);
   analyzer.getByteFrequencyData(data);
